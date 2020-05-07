@@ -58,7 +58,7 @@ public class SurveyCustomersController {
 	@RequestMapping(value="/survey/getSurveyDataById", method=RequestMethod.GET)
 	@ResponseStatus(value=HttpStatus.OK)
 	public Optional<SurveyCustomersModel> getDetails(@RequestParam(value="id", required =
-			true) Integer id, SurveyCustomersModel surveyCustomersModel ){
+			true) Long id, SurveyCustomersModel surveyCustomersModel ){
 		logger.info("START:: SurveyCustomersController :: getSurveyDataById");
 		return surveyCustomersDao.findById(id);
 	}

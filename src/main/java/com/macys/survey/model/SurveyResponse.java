@@ -2,8 +2,6 @@ package com.macys.survey.model;
 
 import javax.persistence.*;
 
-import com.macys.survey.dao.SurveyCustomersDao;
-
 @Entity
 public class SurveyResponse {
 
@@ -13,10 +11,10 @@ public class SurveyResponse {
 
     @ManyToOne
     @JoinColumn(name = "SURVEY_ID")
-    SurveyCustomersModel surveyCustomer;
+    SurveyCustomersModel surveyCustomersModel;
 
-    @OneToOne
-    @JoinColumn(name = "ID")
+    @ManyToOne
+    @JoinColumn(name = "QUIZ_ID")
     SurveyQuiz surveyQuiz;
 
     String answer;
@@ -30,12 +28,12 @@ public class SurveyResponse {
         this.surveyQuiz = surveyQuiz;
     }
 
-    public SurveyCustomersModel getSurveyCustomer() {
-        return surveyCustomer;
+    public SurveyCustomersModel getSurveyCustomersModel() {
+        return surveyCustomersModel;
     }
 
-    public void setSurveyCustomer(SurveyCustomersModel surveyCustomer) {
-        this.surveyCustomer = surveyCustomer;
+    public void setSurveyCustomersModel(SurveyCustomersModel surveyCustomersModel) {
+        this.surveyCustomersModel = surveyCustomersModel;
     }
 
 

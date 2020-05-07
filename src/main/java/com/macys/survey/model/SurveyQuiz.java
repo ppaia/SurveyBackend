@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name = "SurveyQuiz")
 public class SurveyQuiz {
     @Id
-    @Column(name = "Id",nullable = false)
+    @Column(name = "quizId",nullable = false)
     private Long id;
 
     @Column(name = "Page")

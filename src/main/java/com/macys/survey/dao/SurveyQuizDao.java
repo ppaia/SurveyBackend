@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface SurveyQuizDao extends CrudRepository<SurveyQuiz, Integer> {
+public interface SurveyQuizDao extends CrudRepository<SurveyQuiz, Long> {
     public List<SurveyQuiz> findByPageIgnoreCase(String page);
 }

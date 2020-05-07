@@ -15,7 +15,7 @@ public class SurveyCustomersModel {
 	@Id
 	@GeneratedValue
 	@Column(name="surveyId")
-	private Integer surveyId;
+	private Long surveyId;
 	
 	@Column(name="name")
 	private String name;
@@ -45,11 +45,11 @@ public class SurveyCustomersModel {
 	public SurveyCustomersModel(){
 	}
 
-	public Integer getSurveyId() {
+	public Long getSurveyId() {
 		return surveyId;
 	}
 
-	public void setSurveyId(Integer surveyId) {
+	public void setSurveyId(Long surveyId) {
 		this.surveyId = surveyId;
 	}
 

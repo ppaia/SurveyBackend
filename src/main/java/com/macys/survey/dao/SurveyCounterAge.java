@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.macys.survey.model.SurveyCounteByAge;
 
 @Repository
-public interface SurveyCounterAge extends CrudRepository<SurveyCounteByAge, Integer>{
+public interface SurveyCounterAge extends CrudRepository<SurveyCounteByAge, Long>{
 	@Query(value = "SELECT new com.macys.survey.model.SurveyCounteByAge (s.age, count(1)) FROM SurveyCounteByAge s GROUP BY s.age")
 	public List<SurveyCounteByAge> findCounterDataByAge();
 

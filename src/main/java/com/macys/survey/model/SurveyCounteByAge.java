@@ -10,7 +10,7 @@ import javax.persistence.Table;
 public class SurveyCounteByAge {
 	@Id
 	@GeneratedValue
-	private Integer surveyId;
+	private Long surveyId;
 	private String age;
 	private Long count;
 

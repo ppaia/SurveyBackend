@@ -80,7 +80,9 @@ public class SurveyCustomersController {
 		Map<String, Long> ageMap = new HashMap<String, Long>();
 		for(SurveyCounteByAge age : surveyCounterAge.findCounterDataByAge())
 		{
-			ageMap.put(age.getAge(), age.getCount());
+			if (age.getAge() != null && !age.getAge().isEmpty()){
+				ageMap.put(age.getAge(), age.getCount());
+			}
 		}
 		logger.info("END:: SurveyCustomersController :: getSurevyCountByAge");
 		return ageMap; 
@@ -94,7 +96,9 @@ public class SurveyCustomersController {
 		Map<String, Long> genderMap = new HashMap<String, Long>();
 		for(SurveyCountByGender gender : surveyCounterGender.findCounterDataByGender())
 		{
-			genderMap.put(gender.getGender(), gender.getCount());
+			if (gender.getGender() != null && !gender.getGender().isEmpty()){
+				genderMap.put(gender.getGender(), gender.getCount());
+			}
 		}
 		logger.info("END:: SurveyCustomersController :: getSurevyCountByGender");
 		return genderMap;
@@ -111,5 +115,6 @@ public class SurveyCustomersController {
 		surveyCustomersDao.save(surveyCustomersModel);
 		logger.info("END:: SurveyCustomersController :: loadsurveydata");
 		return surveyCustomersModel;
+		//return surveyCustomersDao.findAll();
 	}
 }

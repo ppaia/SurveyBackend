@@ -31,7 +31,10 @@ public class SurveyCustomersModel {
 	
 	@Column(name="page")
 	private String page;
-	
+
+	@Column(name="pincode")
+	private String pincode;
+
 	@Column(name="timestamp")
 	private Timestamp timestamp;
 
@@ -99,5 +102,13 @@ public class SurveyCustomersModel {
 
 	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public String getPincode() {
+		return pincode;
+	}
+
+	public void setPincode(String pincode) {
+		this.pincode = pincode;
 	}
 }

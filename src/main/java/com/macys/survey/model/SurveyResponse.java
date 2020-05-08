@@ -3,6 +3,7 @@ package com.macys.survey.model;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "SurveyResponse")
 public class SurveyResponse {
 
     @Id

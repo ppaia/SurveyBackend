@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.macys.survey.dao.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import com.macys.survey.dao.SurveyCustomerGraph;
 import com.macys.survey.dao.SurveyCustomersDao;
 import com.macys.survey.model.SampleSurveyGraph;
 import com.macys.survey.model.SurveyCountByGender;
+import com.macys.survey.model.SurveyCountByPincode;
 import com.macys.survey.model.SurveyCounteByAge;
 import com.macys.survey.model.SurveyCounter;
 import com.macys.survey.model.SurveyCustomersModel;
@@ -45,6 +47,8 @@ public class SurveyCustomersController {
 	SurveyCounterAge surveyCounterAge;
 	@Autowired
 	SurveyCounterGender surveyCounterGender;
+	@Autowired
+	SurveyCounterPincode surveyCounterPincode;
 
 	//API to get all customer details
 	@RequestMapping(value="/survey/getSurveyData", method=RequestMethod.GET)
@@ -116,5 +120,21 @@ public class SurveyCustomersController {
 		logger.info("END:: SurveyCustomersController :: loadsurveydata");
 		return surveyCustomersModel;
 		//return surveyCustomersDao.findAll();
+	}
+
+	//API to get Survey response on basis of PINCODE from table : SURVEYCUSTOMERS
+	@RequestMapping(value="/survey/getSurveyCountByPincode", method=RequestMethod.GET)
+	@ResponseStatus(value=HttpStatus.OK)
+	public Map<String, Long> getSurveyCountByPincode(){
+		logger.info("START:: SurveyCustomersController :: getSurevyCountByGender");
+		Map<String, Long> pincodeMap = new HashMap<String, Long>();
+		for(SurveyCountByPincode surveyCountByPincode : surveyCounterPincode.findCounterByPincode())
+		{
+			if (surveyCountByPincode.getPincode() != null && !surveyCountByPincode.getPincode().isEmpty()){
+				pincodeMap.put(surveyCountByPincode.getPincode(), surveyCountByPincode.getCount());
+			}
+		}
+		logger.info("END:: SurveyCustomersController :: getSurevyCountByGender");
+		return pincodeMap;
 	}
 }

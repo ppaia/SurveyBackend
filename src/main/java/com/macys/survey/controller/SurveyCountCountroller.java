@@ -1,7 +1,6 @@
 package com.macys.survey.controller;
 
 import com.macys.survey.model.SurveyCount;
-
 import com.macys.survey.model.SurveyCounter;
 import com.macys.survey.service.impl.SurveyCountServiceIMPL;
 import org.slf4j.Logger;
@@ -9,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value="/rest/chatbot/survey")
 public class SurveyCountCountroller {

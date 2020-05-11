@@ -1,12 +1,10 @@
 package com.macys.survey.controller;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import com.macys.survey.dao.*;
+import com.macys.survey.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,10 +68,25 @@ public class SurveyCustomersController {
 	//API to get Survey response from table : SAMPLESURVEYRESPONSE through Customer Query Survey_id
 	@RequestMapping(value="/survey/getsurveygraph", method=RequestMethod.GET)
 	@ResponseStatus(value=HttpStatus.OK)
-	public List<SampleSurveyGraph> getDetailGraph(@RequestParam(value="survey_id", required =
-			true) Integer survey_id, SampleSurveyGraph SampleSurveyGraph ){
+	public List<SurveyResponseQuiz> getDetailGraph(@RequestParam(value="survey_id", required =
+			true) Long survey_id){
+		SurveyCustomersModel surveyCustomersModel=new SurveyCustomersModel();
+		surveyCustomersModel.setSurveyId(survey_id);
 		logger.info("START:: SurveyCustomersController :: getsurveygraph");
-		return surveyCustomerGraph.findInformation(survey_id);
+		List<SurveyResponse> surveyResponse=surveyCustomerGraph.findBySurveyCustomersModel(surveyCustomersModel);
+		List<SurveyResponseQuiz> surveyResponseQuiz=new ArrayList<>();
+		for(SurveyResponse surveyResponses:surveyResponse){
+			SurveyResponseQuiz surveyResponseQuiz1=null;
+			int index=surveyResponses.getSurveyQuiz().getQuestion().indexOf("/");
+			if(surveyResponses.getSurveyQuiz().getQuestion().indexOf("/")!=-1){
+				 surveyResponseQuiz1=new SurveyResponseQuiz(surveyResponses.getSurveyQuiz().getQuestion().substring(0,index),surveyResponses.getAnswer());
+			}
+			else {
+				surveyResponseQuiz1 = new SurveyResponseQuiz(surveyResponses.getSurveyQuiz().getQuestion(), surveyResponses.getAnswer());
+			}
+			surveyResponseQuiz.add(surveyResponseQuiz1);
+		}
+		return surveyResponseQuiz;
 	}
 	
 	//API to get Survey response for AGE from table : SURVEYCUSTOMERS 

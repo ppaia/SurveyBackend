@@ -5,6 +5,8 @@ import java.util.*;
 
 import com.macys.survey.dao.*;
 import com.macys.survey.model.*;
+import com.macys.survey.service.SurveyResponsesCustomerService;
+import com.macys.survey.service.SurveyResponsesSaveService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+//import javax.ws.rs.QueryParam;
 
 import com.macys.survey.dao.SurveyCounterAge;
 import com.macys.survey.dao.SurveyCounterGender;
@@ -47,6 +50,8 @@ public class SurveyCustomersController {
 	SurveyCounterGender surveyCounterGender;
 	@Autowired
 	SurveyCounterPincode surveyCounterPincode;
+	@Autowired
+	SurveyResponsesCustomerService surveyResponsesCustomerService;
 
 	//API to get all customer details
 	@RequestMapping(value="/survey/getSurveyData", method=RequestMethod.GET)
@@ -86,6 +91,7 @@ public class SurveyCustomersController {
 			}
 			surveyResponseQuiz.add(surveyResponseQuiz1);
 		}
+		logger.info("END:: SurveyCustomersController :: getsurveygraph");
 		return surveyResponseQuiz;
 	}
 	
@@ -150,4 +156,15 @@ public class SurveyCustomersController {
 		logger.info("END:: SurveyCustomersController :: getSurevyCountByGender");
 		return pincodeMap;
 	}
+
+	//API to get the Customer Q&A details through Survey ID
+	@RequestMapping(value="/survey/getcustomersurveygraph",method=RequestMethod.GET)
+	@ResponseStatus(value=HttpStatus.OK)
+	List<SurveyResponseQuizes> getSurveyGraph(@RequestParam("surveyid") Long surveyId)
+	{
+		logger.info("START:: SurveyCustomersController :: getSurevyGraph");
+		System.out.println("surveyId"+surveyId);
+        return surveyResponsesCustomerService.getSurveyGraph(surveyId);
+	}
+
 }

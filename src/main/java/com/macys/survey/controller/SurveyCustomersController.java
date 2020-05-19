@@ -5,8 +5,10 @@ import java.util.*;
 
 import com.macys.survey.dao.*;
 import com.macys.survey.model.*;
+import com.macys.survey.service.SurveyCustomerService;
 import com.macys.survey.service.SurveyResponsesCustomerService;
 import com.macys.survey.service.SurveyResponsesSaveService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 //import javax.ws.rs.QueryParam;
+
 
 import com.macys.survey.dao.SurveyCounterAge;
 import com.macys.survey.dao.SurveyCounterGender;
@@ -52,6 +55,8 @@ public class SurveyCustomersController {
 	SurveyCounterPincode surveyCounterPincode;
 	@Autowired
 	SurveyResponsesCustomerService surveyResponsesCustomerService;
+	@Autowired
+	SurveyCustomerService surveyCustomerService;
 
 	//API to get all customer details
 	@RequestMapping(value="/survey/getSurveyData", method=RequestMethod.GET)
@@ -130,14 +135,15 @@ public class SurveyCustomersController {
 	//API to POST the Customer Details to Table : SURVEYCUSTOMERS
 	@RequestMapping(value="/survey/loadsurveydata", method=RequestMethod.POST)
 	@ResponseStatus(value=HttpStatus.CREATED)
-	public @ResponseBody SurveyCustomersModel persistAllData(@RequestBody final SurveyCustomersModel surveyCustomersModel){
+	public @ResponseBody SurveyCustomerModelReqBody persistAllData(@RequestBody final SurveyCustomerModelReqBody surveyCustomerModelReqBody){
 		logger.info("START:: SurveyCustomersController :: loadsurveydata");
-		pageType = surveyCustomersModel.getPage();
-		Timestamp currentTime=new Timestamp(System.currentTimeMillis());  
-		surveyCustomersModel.setTimestamp(currentTime);
+		Timestamp currentTime=new Timestamp(System.currentTimeMillis());
+		surveyCustomerModelReqBody.setTimestamp(currentTime);
+		SurveyCustomersModel surveyCustomersModel = surveyCustomerService.saveCustomerDetails(surveyCustomerModelReqBody);
 		surveyCustomersDao.save(surveyCustomersModel);
+		surveyCustomerModelReqBody.setSurveyId(surveyCustomersModel.getSurveyId());
 		logger.info("END:: SurveyCustomersController :: loadsurveydata");
-		return surveyCustomersModel;
+		return surveyCustomerModelReqBody;
 		//return surveyCustomersDao.findAll();
 	}
 

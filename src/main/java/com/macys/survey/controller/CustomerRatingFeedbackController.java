@@ -81,8 +81,12 @@ public class CustomerRatingFeedbackController {
 			fileName = fileName.toString().concat(".png");
 
 			base64Data = customerFeedRating.getBase64();
+			@SuppressWarnings("restriction")
 			byte[] btDataFile = new sun.misc.BASE64Decoder().decodeBuffer(base64Data);
 		    File file = new File(filePath + fileName);
+			//File file = new File(".");
+		    System.out.println("filePath : " + file.getAbsolutePath() );
+		    System.out.println("filePath 2222: " + filePath + fileName );
 		    FileOutputStream osf = new FileOutputStream(file);
 		    osf.write(btDataFile);
 		    osf.flush();
@@ -106,7 +110,8 @@ public class CustomerRatingFeedbackController {
 			
 				MimeMessage msg = new MimeMessage(emailSession);
 				msg.setFrom(new InternetAddress(fromAddress));
-				msg.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddress));
+				//msg.addRecipient(Message.RecipientType.TO, new InternetAddress(toAddress));
+				msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(toAddress));
 				msg.setSubject(subject);
 					
 				//attach body part

@@ -3,6 +3,7 @@ package com.macys.survey.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -81,7 +82,7 @@ public class CustomerRatingFeedbackController {
 			fileName = fileName.toString().concat(".png");
 
 			base64Data = customerFeedRating.getBase64();
-			@SuppressWarnings("restriction")
+			/*@SuppressWarnings("restriction")
 			byte[] btDataFile = new sun.misc.BASE64Decoder().decodeBuffer(base64Data);
 		    File file = new File(filePath + fileName);
 			//File file = new File(".");
@@ -89,24 +90,31 @@ public class CustomerRatingFeedbackController {
 		    System.out.println("filePath 2222: " + filePath + fileName );
 		    FileOutputStream osf = new FileOutputStream(file);
 		    osf.write(btDataFile);
-		    osf.flush();
-	        
+		    osf.flush();*/
+		    
 			try {
-				File exisFile = new File(filePath + file.getName());
-				if (exisFile.exists()){
-					exisFile.delete();
-					logger.info("Existing File deleted.");
-				}else{
-					logger.info("No file exists to delete.");
-				}
+			String fileDetails = filePath + fileName;
+			byte[] imageByteArray = Base64.getDecoder().decode(base64Data);
+			File file = new File(filePath + fileName);
+			FileOutputStream imageOutFile = new FileOutputStream(file);
+			imageOutFile.write(imageByteArray);
+		    imageOutFile.flush();
 			
-				/*if(!file.isEmpty()){
-					boolean fileExists = convertFile.createNewFile();
-					logger.info("Is new file created : " + fileExists);
-					FileOutputStream fout = new FileOutputStream(convertFile);
-					fout.write(file.getBytes());
-					fout.close();
-				}*/
+			/*File exisFile = new File(filePath + file.getName());
+			if (exisFile.exists()){
+				exisFile.delete();
+				logger.info("Existing File deleted.");
+			}else{
+				logger.info("No file exists to delete.");
+			}*/
+			
+			/*if(!file.is){
+				boolean fileExists = convertFile.createNewFile();
+				logger.info("Is new file created : " + fileExists);
+				FileOutputStream fout = new FileOutputStream(convertFile);
+				fout.write(file.getBytes());
+				fout.close();
+			}*/
 			
 				MimeMessage msg = new MimeMessage(emailSession);
 				msg.setFrom(new InternetAddress(fromAddress));

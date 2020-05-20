@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import javax.persistence.NamedNativeQuery;
 import java.util.List;
+import java.util.Map;
 
 
 public class SurveyQuizesResponse {

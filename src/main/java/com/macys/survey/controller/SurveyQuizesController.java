@@ -164,12 +164,12 @@ public class SurveyQuizesController {
                         }
                     }else
                     {
-                        List<OptionResponseNew> optionResponseNews=new ArrayList<>();
-                        OptionResponseNew opr = new OptionResponseNew();
-                        opr.setOptionId(newsurvey.get(j).getOptionId());
-                        opr.setOption(newsurvey.get(j).getOption());
-                        optionResponseNews.add(opr);
-                        surveyQuizListResponseNew.setSurveyQuiz(optionResponseNews);
+                      //  List<OptionResponseNew> optionResponseNews=new ArrayList<>();
+                        //OptionResponseNew opr = new OptionResponseNew();
+                        surveyQuizListResponseNew.setOptionId(newsurvey.get(j).getOptionId());
+                        surveyQuizListResponseNew.setOption(newsurvey.get(j).getOption());
+                       // optionResponseNews.add(opr);
+                       // surveyQuizListResponseNew.setSurveyQuiz(optionResponseNews);
                     }
                     surveyQuizListResponseNews.add(surveyQuizListResponseNew);
                 }
@@ -183,7 +183,7 @@ public class SurveyQuizesController {
 
                         if (sr.get(i).get(j).getOptionId() == surveyQ.get(i).get(j).getOptionId()) {
                             SurveyQuizResponseNew surveyQuizResponseNew=new SurveyQuizResponseNew();
-                            surveyQuizResponseNew.setSurveyQuizId(sr.get(i).get(j).getOptionId());
+                            surveyQuizResponseNew.setSurveyQuizId(sr.get(i).get(j).getSurveyQuizId());
                             surveyQuizResponseNew.setQuestion(sr.get(i).get(j).getQuestion());
                             surveyQuizResponseNew.setOptions(surveyQ.get(i));
                             surveyQuizResponseNews.add(surveyQuizResponseNew);
@@ -195,7 +195,7 @@ public class SurveyQuizesController {
                     else{
                         if (sr.get(i).get(j).getOptionId() == surveyQ.get(i).get(j).getSurveyQuiz().get(0).getOptionId()) {
                             SurveyQuizResponseNew surveyQuizResponseNew=new SurveyQuizResponseNew();
-                            surveyQuizResponseNew.setSurveyQuizId(sr.get(i).get(j).getOptionId());
+                            surveyQuizResponseNew.setSurveyQuizId(sr.get(i).get(j).getSurveyQuizId());
                             surveyQuizResponseNew.setQuestion(sr.get(i).get(j).getQuestion());
                             surveyQuizResponseNew.setOptions(surveyQ.get(i));
                             surveyQuizResponseNews.add(surveyQuizResponseNew);

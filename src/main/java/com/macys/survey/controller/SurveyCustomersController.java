@@ -63,7 +63,7 @@ public class SurveyCustomersController {
 	@ResponseStatus(value=HttpStatus.OK)
 	public List<SurveyCustomersModel> getAll(){
 		logger.info("START:: SurveyCustomersController :: getSurveyData");
-		return surveyCustomersDao.findAll();
+		return surveyCustomersDao.findAllByOrderByTimestampDesc();
 	}
 	
 	//API to get Customer Details through Survey_Id
